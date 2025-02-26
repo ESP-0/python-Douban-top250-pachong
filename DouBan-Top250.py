@@ -1,6 +1,7 @@
+#爬取豆瓣电影Top250列表数据程序。模拟浏览器访问网站，抓取网页上的数据。
+#电影详情链接、图片链接、中文名、外国名、评分、评价人数、简介等，并保存到Excel文件中。
 
 # -*- coding = utf-8 -*-
-
 from bs4 import BeautifulSoup
 import re
 import requests
