@@ -17,18 +17,18 @@ findInq = re.compile(r'<span class="inq">(.*)</span>')
 findBd = re.compile(r'<p class="">(.*?)</p>', re.S)
 
 def main():
-    baseurl = "https://movie.douban.com/top250?start="  # 修正为正常的豆瓣URL
+    baseurl = "https://movie.douban.com/top250?start=" 
     datalist = getData(baseurl)
     savepath = "豆瓣电影Top250.xls"
-    saveData(datalist, savepath)  # 保存数据到Excel
+    saveData(datalist, savepath)  
 
-# 爬取网页
+#爬取网页
 def getData(baseurl):
-    datalist = []  #
+    datalist = []  
     for i in range(0, 10):
         url = baseurl + str(i * 25)
         html = askURL(url)
-        if html:  # 如果html内容为空，跳过
+        if html:  
             soup = BeautifulSoup(html, "html.parser")
             for item in soup.find_all('div', class_="item"):
                 data = []
@@ -61,24 +61,21 @@ def getData(baseurl):
                 bd = re.sub('/', "", bd)
                 data.append(bd.strip())
                 datalist.append(data)
-
     return datalist
 
-# 得到URL的网页内容
 def askURL(url):
     head = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
     }
     try:
         response = requests.get(url, headers=head)
-        response.raise_for_status()  # 如果响应状态码不是200，会抛出异常
-        return response.text  # 返回网页内容
+        response.raise_for_status()  
+        return response.text  
     except requests.exceptions.RequestException as e:
         print(f"Request Error: {e}")
         return None
 
-
-# 保存数据到表格
+#保存数据到表格
 def saveData(datalist, savepath):
     print("save.......")
     book = xlwt.Workbook(encoding="utf-8", style_compression=0)
@@ -95,3 +92,7 @@ def saveData(datalist, savepath):
 if __name__ == "__main__":
     main()
     print("爬取完毕！")
+
+
+
+
